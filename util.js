@@ -69,3 +69,34 @@ export function withinErrorMargin(left, right) {
 
 // fill array
 // Array(6).fill(8)// [8,8,8,8,8,8]
+
+// chain 链式取值
+export function get(obj, props, def) {
+    if((obj == null) || obj == null || typeof props !== 'string') return def;
+    const temp = props.split('.');
+    const fieldArr = [].concat(temp);
+    temp.forEach((e, i) => {
+        if(/^(\w+)\[(\w+)\]$/.test(e)) {
+            const matchs = e.match(/^(\w+)\[(\w+)\]$/);
+            const field1 = matchs[1];
+            const field2 = matchs[2];
+            const index = fieldArr.indexOf(e);
+            fieldArr.splice(index, 1, field1, field2);
+        }
+    })
+    return fieldArr.reduce((pre, cur) => {
+        const target = pre[cur] || def;
+
+        if(target instanceof Array) {
+            return [].concat(target);
+        }
+        if(target instanceof Object) {
+            return Object.assign({}, target)
+        }
+        return target;
+    }, obj)
+}
+// var c = {a: {b : [1,2,3] }}
+// get(c ,'a.b')     // [1,2,3]
+// get(c, 'a.b[1]')  // 2
+// get(c, 'a.d', 12)  // 12
