@@ -67,6 +67,11 @@ export function withinErrorMargin(left, right) {
     return Math.abs(left - right) < Number.EPSILON * Math.pow(2, 2);
 }
 
+// 获取变量类型
+export function type(v){
+    return Object.prototype.toString.call(v).slice(8,-1)
+}
+
 // fill array
 // Array(6).fill(8)// [8,8,8,8,8,8]
 
