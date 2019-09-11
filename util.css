@@ -1,0 +1,52 @@
+/* 多行文本溢出 */
+.rows-ell{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+/* 图文不可复制 */
+.no-copy{
+    -webkit-user-select: none; 
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+/*  placeholder颜色 */
+
+input::-webkit-input-placeholder { 
+    /* WebKit browsers */ 
+    font-size:14px;
+    color: #333;
+} 
+input::-moz-placeholder { 
+    /* Mozilla Firefox 19+ */ 
+    font-size:14px;
+    color: #333;
+} 
+input:-ms-input-placeholder { 
+    /* Internet Explorer 10+ */ 
+    font-size:14px;
+    color: #333;
+}
+
+/* 图片变黑白 */
+img.desaturate {
+	filter: grayscale(100%);
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+}
+
+/* 光标变色 */
+input{
+    caret-color: red;
+  }
+
+  /* textarea换行 */
+  textarea{
+    white-space:pre-line/pre-wrap
+  }
