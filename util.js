@@ -105,3 +105,38 @@ export function get(obj, props, def) {
 // get(c ,'a.b')     // [1,2,3]
 // get(c, 'a.b[1]')  // 2
 // get(c, 'a.d', 12)  // 12
+
+// get url params
+export function GetParams() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}
+
+// get image natural width and height
+export function getImageNatural(img,cb){
+    if (img.naturalWidth) { // 现代浏览器
+        nWidth = img.naturalWidth
+        nHeight = img.naturalHeight
+        cb({w:nWidth,h:nHeight})
+    } else { // IE6/7/8
+        var image = new Image();
+        image.src = img.attr('src');
+        if(image.complete){
+            cb({w:image.width,h:image.height})
+        }else{
+            image.onload = function(){
+                var w = image.width;
+                var h = image.height;
+                cb({w:w,h:h})
+            }                           
+        }
+    }
+}
