@@ -39,7 +39,10 @@ export function sumArr(arr){
 }
 
 // 类数组转数组
-export function list2arr(){
+export function list2arr(options){
+    // Array.from(options)
+    // Array.prototype.slice.call(options)
+    // Array.prototype.concat.apply([],options)
     return [...arguments]
 }
 
@@ -145,3 +148,5 @@ export function getImageNatural(img,cb){
 function getLstMember(num = 1) {
     return array.slice( -num )
 }
+
+
