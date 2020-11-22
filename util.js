@@ -140,3 +140,8 @@ export function getImageNatural(img,cb){
         }
     }
 }
+
+// 获取数组中的最后一项
+function getLstMember(num = 1) {
+    return array.slice( -num )
+}
