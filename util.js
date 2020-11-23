@@ -70,16 +70,11 @@ export function withinErrorMargin(left, right) {
     return Math.abs(left - right) < Number.EPSILON * Math.pow(2, 2);
 }
 
-// 获取变量类型
-export function type(v){
-    return Object.prototype.toString.call(v).slice(8,-1)
-}
-
 // fill array
 // Array(6).fill(8)// [8,8,8,8,8,8]
 
 // chain 链式取值
-export function get(obj, props, def) {
+export function getChain(obj, props, def) {
     if((obj == null) || obj == null || typeof props !== 'string') return def;
     const temp = props.split('.');
     const fieldArr = [].concat(temp);
@@ -145,8 +140,15 @@ export function getImageNatural(img,cb){
 }
 
 // 获取数组中的最后一项
-function getLstMember(num = 1) {
+export function getLstMember(num = 1) {
     return array.slice( -num )
 }
 
+// 获取数据类型
+// obj => Object.prototype.toString.call(obj); 在业务代码中覆写了Object.prototype.toString方法，可能得不到正确的结果
+export const getType = Function.prototype.call.bind(Object.prototype.toString); 
 
+// 创建链接字符串
+export function createLinkStr(str,url) {
+    return str.link(url) // `<a herf="www.google.com">google</a>`
+}

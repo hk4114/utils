@@ -15,7 +15,6 @@
 }
 
 /*  placeholder颜色 */
-
 input::-webkit-input-placeholder { 
     /* WebKit browsers */ 
     font-size:14px;
@@ -46,7 +45,7 @@ input{
     caret-color: red;
   }
 
-  /* textarea换行 */
-  textarea{
+/* textarea换行 */
+textarea{
     white-space:pre-line/pre-wrap
-  }
+}
