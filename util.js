@@ -202,8 +202,7 @@ export function  uniqueObjectArray(arg){
 }
 
 // get url params
-export function GetParams() {
-    var url = location.search; //获取url中"?"符后的字串
+export function getUrlParams(url) {
     var theRequest = new Object();
     if (url.indexOf("?") != -1) {
         var str = url.substr(1);
