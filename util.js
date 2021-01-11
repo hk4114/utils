@@ -46,8 +46,13 @@ export function list2arr(options){
 // a^=b b^=a a^=b
 
 // 数组乱序
-export function arrRandom(arr){
-    return arr.sort(()=>Math.random()-.5)
+export function shuffle(arr){
+    let i = arr.length;
+    while(i) {
+        let j = Math.floor(Math.random() * i--);
+        [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    return arr
 }
 
 // 取时间戳
