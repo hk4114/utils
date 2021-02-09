@@ -19,6 +19,7 @@
 15. getLstMember 获取数组中的最后一项
 16. getType 获取数据类型
 17. createLinkStr 创建链接字符串
+18. isNumberPowerOfTwo 检查是否为2的幂数
 
 
 ```js

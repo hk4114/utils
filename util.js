@@ -235,3 +235,6 @@ export function stringifyUrl(search = {}) {
     .reduce((t, v) => `${t}${v[0]}=${encodeURIComponent(v[1])}&`, Object.keys(search).length ? "?" : "" )
     .replace(/&$/, "");
 }
+
+// check the number is power of 2
+export const isNumberPowerOfTwo = number => !!number && (number & (number - 1)) === 0;
