@@ -238,3 +238,7 @@ export function stringifyUrl(search = {}) {
 
 // check the number is power of 2
 export const isNumberPowerOfTwo = number => !!number && (number & (number - 1)) === 0;
+
+export function getLastPageUrl() {
+    return document.referrer
+} 
