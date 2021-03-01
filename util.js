@@ -242,3 +242,35 @@ export const isNumberPowerOfTwo = number => !!number && (number & (number - 1)) 
 export function getLastPageUrl() {
     return document.referrer
 } 
+
+// 目标元素全屏
+export function fullScreen(id) {
+    if(document.fullscreenEnabled) {
+        document.getElementById(id).requestFullscreen();
+    }
+}
+
+export async function performCopy(event) {
+    event.preventDefault();
+    if (navigator.clipboard && navigator.clipboard.read && navigator.clipboard.write) {
+        try {
+            await navigator.clipboard.writeText(copyText);
+            console.log(`${copyText} copied to clipboard`);
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    }
+}
+export async function performPaste(event) {
+    event.preventDefault();
+    if (!(navigator.clipboard && navigator.clipboard.read && navigator.clipboard.write)) {
+        return false
+    }
+    try {
+        const text = await navigator.clipboard.readText();
+        setPastetext(text);
+        console.log('Pasted content: ', text);
+    } catch (err) {
+       console.error('Failed to read clipboard contents: ', err);
+    }
+ }

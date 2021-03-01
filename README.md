@@ -21,7 +21,8 @@
 17. createLinkStr 创建链接字符串
 18. isNumberPowerOfTwo 检查是否为2的幂数
 19. getLastPageUrl returns the URI of the page that linked to this page.
-
+20. performCopy/performPaste 浏览器新api 复制粘贴
+ 
 
 ```js
 // 拦截对象
