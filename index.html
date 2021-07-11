@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils demo</title>
+    <link rel="stylesheet" href="./clamp.css" />
+    <link rel="stylesheet" href="./util.css" />
+  </head>
+  <body>
+    <div class="clamp-wrapper warpper">
+      <input id="exp1" class="exp" type="checkbox" />
+      <div class="text">
+        <label class="btn" for="exp1"></label>
+        本质是以状态为基础展示UI: 用户在 UI(User Interactions) 上操作，产生
+        action 通过 dispatcher 分发出去，然后由 store 进行处理，store 根据
+        action 更新自己，view 是绑定在 store 上的，所以view也会更新。 正是
+        以状态为基础展示UI 这个特点，在开发react组件时，需要考虑：
+        组件一般不提供方法，只是状态机。 组件可以理解为一个纯函数。
+        单向数据绑定。
+      </div>
+    </div>
+  </body>
+</html>
