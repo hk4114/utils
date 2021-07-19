@@ -15,17 +15,17 @@
 }
 
 /*  placeholder颜色 */
-input::-webkit-input-placeholder {
+.pls input::-webkit-input-placeholder {
   /* WebKit browsers */
   font-size: 14px;
   color: #333;
 }
-input::-moz-placeholder {
+.pls input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   font-size: 14px;
   color: #333;
 }
-input:-ms-input-placeholder {
+.pls input:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   font-size: 14px;
   color: #333;
@@ -41,11 +41,11 @@ img.desaturate {
 }
 
 /* 光标变色 */
-input {
+.cursor input {
   caret-color: red;
 }
 
 /* textarea换行 */
-textarea {
-  white-space: pre-line/pre-wrap;
+.textarea-wrap {
+  white-space: pre-line; /* pre-wrap */
 }
