@@ -72,3 +72,7 @@
 |     光标变色     |    cursor     |
 |   textarea换行   | textarea-wrap |
 | 多行文本收起展开 |   clamp.css   |
+
+## 笔试题
+- [防抖节流](./src/interview-code/throttle&debounce)
+- [bind](./src/interview-code/myBind)

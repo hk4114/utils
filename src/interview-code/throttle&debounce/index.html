@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>throttle&debounce</title>
+    <style>
+      .wrap {
+        margin: 12px auto;
+        width: 200px;
+        padding: 20px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>test code</h1>
+    <div class="wrap">
+      debounce
+      <input type="text" id="input1" />
+      value:<span id="span1"></span>
+    </div>
+    <div class="wrap">
+      throttle
+      <input type="text" id="input2" />
+      value:<span id="span2"></span>
+    </div>
+    <script src="./index.js"></script>
+    <script>
+      let input1 = document.getElementById('input1')
+      let span1 = document.getElementById('span1')
+      input1.oninput = debounce((e) => {
+        span1.innerText = e.target.value
+      }, 2000)
+
+      let input2 = document.getElementById('input2')
+      let span2 = document.getElementById('span2')
+      input2.oninput = throttle((e) => {
+        span2.innerText = e.target.value
+      }, 2000)
+    </script>
+  </body>
+</html>
