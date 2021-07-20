@@ -1,6 +1,6 @@
 # README
 
-## 数组
+## [数组](./src/arr/index.js)
 |        result        |        func name         |
 | :------------------: | :----------------------: |
 |       数组乱序       |         shuffle          |
@@ -16,7 +16,7 @@
 |       数组去重       |          unique          |
 |  数组去重 object[]   |    uniqueObjectArray     |
 
-## 数字
+## [数字](./src/num/index.js)
 |              result               |     func name      |
 | :-------------------------------: | :----------------: |
 | withinErrorMargin(0.1 + 0.2, 0.3) | withinErrorMargin  |
@@ -25,14 +25,14 @@
 |            非大数取整             |     intNumber      |
 
 
-## 对象
+## [对象](./src/obj/index.js)
 |      result      |  func name   |
 | :--------------: | :----------: |
 |   获取数据类型   |   getType    |
 | 比较对象是否相等 | deepCompare  |
 |      深拷贝      | objDeepClone |
 
-## 浏览器
+## [浏览器](./src/browser/index.js)
 |      result      |    func name    |
 | :--------------: | :-------------: |
 |  获取浏览器信息  |   getBrowser    |
@@ -44,7 +44,7 @@
 | 获取图片原始宽高 | getImageNatural |
 
 
-## 字符串
+## [字符串](./src/str/index.js)
 |     result     |     func name     |
 | :------------: | :---------------: |
 | get url params |   getUrlParams    |
@@ -53,7 +53,7 @@
 | 英文首字母大写 |     camelCase     |
 |   isPangram    |     isPangram     |
 
-## 其他
+## [其他](./src/other/index.js)
 |    result    | func name |
 | :----------: | :-------: |
 |   链式取值   | getChain  |
@@ -62,7 +62,7 @@
 |     节流     | throttle  |
 | 类数组转数组 | list2arr  |
 
-## css
+## [css](./util.css)
 |      result      |  class name   |
 | :--------------: | :-----------: |
 |   图文不可复制   |    no-copy    |
