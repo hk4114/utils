@@ -39,9 +39,9 @@ Function.prototype.myBind = function(target) {
   // _this.apply(target, finalArgs)
 
   if (_this.prototype) { // 保留函数原型
-    // bound.prototype = _this.prototype // _this.prototype 导致原函数的原型被修改 应使用 Object.create
-    bound.prototype = Object.create(_this.prototype);
-    bound.prototype.constructor = _this;
+    // wrapper.prototype = _this.prototype // _this.prototype 导致原函数的原型被修改 应使用 Object.create
+    wrapper.prototype = Object.create(_this.prototype);
+    wrapper.prototype.constructor = _this;
   }
   
   return wrapper
