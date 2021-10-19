@@ -26,11 +26,12 @@
 
 
 ## [对象](./src/obj/index.js)
-|      result      |  func name   |
-| :--------------: | :----------: |
-|   获取数据类型   |   getType    |
-| 比较对象是否相等 | deepCompare  |
-|      深拷贝      | objDeepClone |
+|      result      |   func name   |
+| :--------------: | :-----------: |
+|   获取数据类型   |    getType    |
+| 比较对象是否相等 |  deepCompare  |
+|      深拷贝      | objDeepClone  |
+|    获取原型链    | getProtoChain |
 
 ## [浏览器](./src/browser/index.js)
 |      result      |    func name    |

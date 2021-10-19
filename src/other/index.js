@@ -73,8 +73,7 @@ function list2arr(options) {
   return [...arguments]
 }
 
-
-export default{
+export default {
   getChain,
   sleep,
   debounce,

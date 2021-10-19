@@ -166,8 +166,17 @@ function deepCompare(x, y) {
   return true;
 }
 
+function getProtoChain(obj) {
+  let protoChain = [];
+  while (obj = Object.getPrototypeOf(obj)) {
+    protoChain.push(obj);
+  }
+  return protoChain
+}
+
 export default {
   getType,
   deepCompare,
-  objDeepClone
+  objDeepClone,
+  getProtoChain
 }
