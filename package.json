@@ -1,0 +1,23 @@
+{
+  "name": "utils",
+  "version": "1.0.0",
+  "description": "|        result        |        func name         |\r | :------------------: | :----------------------: |\r |       数组乱序       |         shuffle          |\r | 获取数组中的最后一项 |       getLstMember       |\r |       数组交集       |       intersection       |\r |  数组交集 object[]   | intersectionObjectArray  |\r |       数组并集       |         getUnion         |\r |  数组并集 object[]   |   getUnionObjectArray    |\r |       数组差集       |         getDiff          |\r |  数组差集 object[]   |    getDiffObjectArray    |\r |       数组补集       |      getComplement       |\r |  数组补集 object[]   | getComplementObjectArray |\r |       数组去重       |          unique          |\r |  数组去重 object[]   |    uniqueObjectArray     |",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hk4114/utils.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hk4114/utils/issues"
+  },
+  "homepage": "https://github.com/hk4114/utils#readme",
+  "devDependencies": {
+    "promises-aplus-tests": "^2.1.2"
+  }
+}
