@@ -133,6 +133,48 @@ function getImageNatural(img, cb) {
   }
 }
 
+function findParent(dom, className) {
+  let parent = dom.parentElement;
+  if (dom && parent.className !== className) {
+    parent = findParent(dom.parentElement, className);
+  }
+  return parent;
+}
+
+function getElementTop(element, target) {
+  const eleRect = element.getBoundingClientRect()
+  const targetRect = target.getBoundingClientRect()
+  if(eleRect && targetRect) {
+    return targetRect.top - eleRect.top
+  }
+
+  var actualTop = element.offsetTop;
+  var current = element.offsetParent;
+
+  while (current !== target) {
+    actualTop += current.offsetTop;
+    current = current.offsetParent;
+  }
+  return actualTop;
+}
+
+function getElementLeft(element, target) {
+  const eleRect = element.getBoundingClientRect()
+  const targetRect = target.getBoundingClientRect()
+  if(eleRect && targetRect) {
+    return targetRect.left - eleRect.left
+  }
+
+  var actualLeft = element.offsetLeft;
+  var current = element.offsetParent;
+
+  while (current !== target) {
+    actualLeft += current.offsetLeft;
+    current = current.offsetParent;
+  }
+  return actualLeft;
+}
+
 export default {
   getBrowser,
   performCopy,
@@ -140,5 +182,8 @@ export default {
   getFullScreen,
   getLastPageUrl,
   createLinkStr,
-  getImageNatural
+  getImageNatural,
+  findParent,
+  getElementTop,
+  getElementLeft,
 }

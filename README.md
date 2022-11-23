@@ -43,6 +43,9 @@
 |  获取上一页url   | getLastPageUrl  |
 |  创建链接字符串  |  createLinkStr  |
 | 获取图片原始宽高 | getImageNatural |
+| 获取指定父元素 | findParent |
+| 获取元素相对于某元素的left | getElementLeft |
+| 获取元素相对于某元素的top | getElementTop |
 
 
 ## [字符串](./src/str/index.js)
