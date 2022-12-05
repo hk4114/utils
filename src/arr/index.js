@@ -84,6 +84,31 @@ function uniqueObjectArray(arg) {
   return result
 }
 
+export function calcObjArrTotal(arr, key = 'value') {
+  return arr.reduce((pre, next) => {
+    return pre + next[key]
+  }, 0)
+}
+
+const calcFloat = num => Math.floor(num * 100) / 100
+
+export function fixObjArrRate(arr, key = 'value') {
+  let max = 0, maxIdx = 0;
+  
+  const total = calcObjArrTotal(arr, key = 'value');
+
+  const scraps = 100 - arr.reduce((pre, next, index) => {
+    if (arr[index].value > max) {
+      max = arr[index].value;
+      maxIdx = index
+    }
+    arr[index].rate = calcFloat(next[key] * 100 / total);
+    return pre + arr[index].rate
+  }, 0)
+  arr[maxIdx].rate = + (scraps + arr[maxIdx].rate).toFixed(2)
+  return arr
+}
+
 export default {
   shuffle,
   getLstMember,
@@ -96,5 +121,7 @@ export default {
   getComplement,
   getComplementObjectArray,
   unique,
-  uniqueObjectArray
+  uniqueObjectArray,
+  calcObjArrTotal,
+  fixObjArrRate
 }

@@ -1,20 +1,22 @@
 # README
 
 ## [数组](./src/arr/index.js)
-|        result        |        func name         |
-| :------------------: | :----------------------: |
-|       数组乱序       |         shuffle          |
-| 获取数组中的最后一项 |       getLstMember       |
-|       数组交集       |       intersection       |
-|  数组交集 object[]   | intersectionObjectArray  |
-|       数组并集       |         getUnion         |
-|  数组并集 object[]   |   getUnionObjectArray    |
-|       数组差集       |         getDiff          |
-|  数组差集 object[]   |    getDiffObjectArray    |
-|       数组补集       |      getComplement       |
-|  数组补集 object[]   | getComplementObjectArray |
-|       数组去重       |          unique          |
-|  数组去重 object[]   |    uniqueObjectArray     |
+|             result             |        func name         |
+| :----------------------------: | :----------------------: |
+|            数组乱序            |         shuffle          |
+|      获取数组中的最后一项      |       getLstMember       |
+|            数组交集            |       intersection       |
+|       数组交集 object[]        | intersectionObjectArray  |
+|            数组并集            |         getUnion         |
+|       数组并集 object[]        |   getUnionObjectArray    |
+|            数组差集            |         getDiff          |
+|       数组差集 object[]        |    getDiffObjectArray    |
+|            数组补集            |      getComplement       |
+|       数组补集 object[]        | getComplementObjectArray |
+|            数组去重            |          unique          |
+|       数组去重 object[]        |    uniqueObjectArray     |
+|     计算数组某个字段的总数     |     calcObjArrTotal      |
+| 计算并修正数组占比，使合计100% |      fixObjArrRate       |
 
 ## [数字](./src/num/index.js)
 |              result               |     func name      |
@@ -34,18 +36,18 @@
 |    获取原型链    | getProtoChain |
 
 ## [浏览器](./src/browser/index.js)
-|      result      |    func name    |
-| :--------------: | :-------------: |
-|  获取浏览器信息  |   getBrowser    |
-|       复制       |   performCopy   |
-|       粘贴       |  performPaste   |
-|   目标元素全屏   |  getFullScreen  |
-|  获取上一页url   | getLastPageUrl  |
-|  创建链接字符串  |  createLinkStr  |
-| 获取图片原始宽高 | getImageNatural |
-| 获取指定父元素 | findParent |
-| 获取元素相对于某元素的left | getElementLeft |
-| 获取元素相对于某元素的top | getElementTop |
+|           result           |    func name    |
+| :------------------------: | :-------------: |
+|       获取浏览器信息       |   getBrowser    |
+|            复制            |   performCopy   |
+|            粘贴            |  performPaste   |
+|        目标元素全屏        |  getFullScreen  |
+|       获取上一页url        | getLastPageUrl  |
+|       创建链接字符串       |  createLinkStr  |
+|      获取图片原始宽高      | getImageNatural |
+|       获取指定父元素       |   findParent    |
+| 获取元素相对于某元素的left | getElementLeft  |
+| 获取元素相对于某元素的top  |  getElementTop  |
 
 
 ## [字符串](./src/str/index.js)
