@@ -60,13 +60,18 @@
 |   isPangram    |     isPangram     |
 
 ## [其他](./src/other/index.js)
-|    result    | func name |
-| :----------: | :-------: |
-|   链式取值   | getChain  |
-|   睡眠函数   |   sleep   |
-|     防抖     | debounce  |
-|     节流     | throttle  |
-| 类数组转数组 | list2arr  |
+|        result        |         func name          |
+| :------------------: | :------------------------: |
+|       链式取值       |          getChain          |
+|       睡眠函数       |           sleep            |
+|         防抖         |          debounce          |
+|         节流         |          throttle          |
+|     类数组转数组     |          list2arr          |
+|     检测暗色主题     |         isDarkMode         |
+|    滚动到顶/底部     | scrollToTop/scrollToBottom |
+| 检测元素是否在屏幕中 |       Interobserver        |
+|  从 URL 中获取参数   |       getParamByUrl        |
+
 
 ## [css](./util.css)
 |      result      |  class name   |

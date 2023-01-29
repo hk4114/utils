@@ -73,10 +73,50 @@ function list2arr(options) {
   return [...arguments]
 }
 
+// 检测暗色主题
+const isDarkMode = () => window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+// 滚动到顶/底部
+const scrollToTop = (element) =>
+  element.scrollIntoView({ behavior: "smooth", block: "start" });
+
+const scrollToBottom = (element) =>
+  element.scrollIntoView({ behavior: "smooth", block: "end" });
+
+// 检测元素是否在屏幕中 IntersectionObserver
+const callback = (entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      // `entry.target` is the dom element
+      console.log(`${entry.target.id} is visible`);
+    }
+  });
+};
+
+const options = {
+  threshold: 1.0,
+};
+const Interobserver = new IntersectionObserver(callback, options);
+// const btn = document.getElementById("btn");
+// const bottomBtn = document.getElementById("bottom-btn");
+// Interobserver.observe(btn);
+// Interobserver.observe(bottomBtn);
+
+// 从 URL 中获取参数
+const getParamByUrl = (key) => {
+  const url = new URL(location.href)
+  return url.searchParams.get(key)
+}
+
 export default {
   getChain,
   sleep,
   debounce,
   throttle,
-  list2arr
+  list2arr,
+  isDarkMode,
+  getParamByUrl,
+  scrollToTop,
+  scrollToBottom,
+  Interobserver
 }
