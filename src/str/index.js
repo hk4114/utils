@@ -4,10 +4,18 @@ function isPangram(str) {
   return "abcdefghijklmnopqrstuvwxyz".split("").every(x => string.indexOf(x) !== -1);
 }
 
-// 英文首字母大写
-function camelCase(str) {
-  return str.trim().replace(/(?:^|\s+)(\w)/g, (_, c) => _.toUpperCase())
+// type 1-全大写 2-全小写 3-首字母大写
+function turnCase (str, type = 1) {
+  switch (type) {
+    case 1:
+      return str.toUpperCase()
+    case 2:
+      return str.toLowerCase()
+    case 3:
+      return str.trim().replace(/(?:^|\s+)(\w)/g, (_, c) => _.toUpperCase())
+  }
 }
+
 
 // 获取url
 function stringifyUrl(search = {}) {
@@ -52,12 +60,17 @@ function renderTemplateStr(template, data) {
   return template; // 如果模板没有模板字符串直接返回
 }
 
+// 手机号脱敏
+function hideMobile(mobile) {
+  return mobile.replace(/^(\d{3})\d{4}(\d{4})$/, "$1****$2")
+}
 
 
 export default{
   isPangram,
-  camelCase,
+  turnCase,
   stringifyUrl,
   getUrlParams,
-  renderTemplateStr
+  renderTemplateStr,
+  hideMobile
 }

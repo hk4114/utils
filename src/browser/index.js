@@ -70,27 +70,37 @@ function getBrowser() {
 // 复制
 async function performCopy(event) {
   event.preventDefault();
-  if (navigator.clipboard && navigator.clipboard.read && navigator.clipboard.write) {
+  if (
+    navigator.clipboard &&
+    navigator.clipboard.read &&
+    navigator.clipboard.write
+  ) {
     try {
       await navigator.clipboard.writeText(copyText);
       console.log(`${copyText} copied to clipboard`);
     } catch (err) {
-      console.error('Failed to copy: ', err);
+      console.error("Failed to copy: ", err);
     }
   }
 }
 // 粘贴
 async function performPaste(event) {
   event.preventDefault();
-  if (!(navigator.clipboard && navigator.clipboard.read && navigator.clipboard.write)) {
-    return false
+  if (
+    !(
+      navigator.clipboard &&
+      navigator.clipboard.read &&
+      navigator.clipboard.write
+    )
+  ) {
+    return false;
   }
   try {
     const text = await navigator.clipboard.readText();
     setPastetext(text);
-    console.log('Pasted content: ', text);
+    console.log("Pasted content: ", text);
   } catch (err) {
-    console.error('Failed to read clipboard contents: ', err);
+    console.error("Failed to read clipboard contents: ", err);
   }
 }
 
@@ -103,32 +113,33 @@ function getFullScreen(id) {
 
 // 获取上一页url
 function getLastPageUrl() {
-  return document.referrer
+  return document.referrer;
 }
-
 
 // 创建链接字符串
 function createLinkStr(str, url) {
-  return str.link(url) // `<a herf="www.google.com">google</a>`
+  return str.link(url); // `<a herf="www.google.com">google</a>`
 }
 
 // get image natural width and height
 function getImageNatural(img, cb) {
-  if (img.naturalWidth) { // 现代浏览器
-    nWidth = img.naturalWidth
-    nHeight = img.naturalHeight
-    cb({ w: nWidth, h: nHeight })
-  } else { // IE6/7/8
+  if (img.naturalWidth) {
+    // 现代浏览器
+    nWidth = img.naturalWidth;
+    nHeight = img.naturalHeight;
+    cb({ w: nWidth, h: nHeight });
+  } else {
+    // IE6/7/8
     var image = new Image();
-    image.src = img.attr('src');
+    image.src = img.attr("src");
     if (image.complete) {
-      cb({ w: image.width, h: image.height })
+      cb({ w: image.width, h: image.height });
     } else {
       image.onload = function () {
         var w = image.width;
         var h = image.height;
-        cb({ w: w, h: h })
-      }
+        cb({ w: w, h: h });
+      };
     }
   }
 }
@@ -142,10 +153,10 @@ function findParent(dom, className) {
 }
 
 function getElementTop(element, target) {
-  const eleRect = element.getBoundingClientRect()
-  const targetRect = target.getBoundingClientRect()
-  if(eleRect && targetRect) {
-    return targetRect.top - eleRect.top
+  const eleRect = element.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+  if (eleRect && targetRect) {
+    return targetRect.top - eleRect.top;
   }
 
   var actualTop = element.offsetTop;
@@ -159,10 +170,10 @@ function getElementTop(element, target) {
 }
 
 function getElementLeft(element, target) {
-  const eleRect = element.getBoundingClientRect()
-  const targetRect = target.getBoundingClientRect()
-  if(eleRect && targetRect) {
-    return targetRect.left - eleRect.left
+  const eleRect = element.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+  if (eleRect && targetRect) {
+    return targetRect.left - eleRect.left;
   }
 
   var actualLeft = element.offsetLeft;
@@ -175,6 +186,75 @@ function getElementLeft(element, target) {
   return actualLeft;
 }
 
+// 全屏
+function launchFullScreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullScreen();
+  }
+}
+
+// 退出全屏
+function exitFullScreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
+
+class MyCache {
+  constructor(isLocal = true) {
+    this.storage = isLocal ? localStorage : sessionStorage;
+  }
+
+  setItem(key, value) {
+    if (typeof value === "object") value = JSON.stringify(value);
+    this.storage.setItem(key, value);
+  }
+
+  getItem(key) {
+    try {
+      return JSON.parse(this.storage.getItem(key));
+    } catch (err) {
+      return this.storage.getItem(key);
+    }
+  }
+
+  removeItem(key) {
+    this.storage.removeItem(key);
+  }
+
+  clear() {
+    this.storage.clear();
+  }
+
+  key(index) {
+    return this.storage.key(index);
+  }
+
+  length() {
+    return this.storage.length;
+  }
+}
+
+const localCache = new MyCache();
+const sessionCache = new MyCache(false);
+
+// localCache.getItem('user')
+// sessionCache.setItem('name','kane')
+// sessionCache.getItem('token')
+// localCache.clear()
+
 export default {
   getBrowser,
   performCopy,
@@ -186,4 +266,8 @@ export default {
   findParent,
   getElementTop,
   getElementLeft,
-}
+  launchFullScreen,
+  exitFullScreen,
+  localCache, 
+  sessionCache 
+};
