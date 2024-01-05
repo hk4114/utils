@@ -96,3 +96,59 @@
 
 - [防抖节流](./src/interview-code/throttle&debounce)
 - [bind](./src/interview-code/myBind)
+
+
+## 移除事件监听器
+方法一：
+
+- 接受三个参数：要移除的监听器类型、该监听器的回调函数以及一个选项对象。
+- 参数必须和设置监听器时使用的参数完全匹配，包括相同的回调引用。否则 `removeEventListener()` 将不起作用。
+
+方法二
+
+- 第二个对象参数有一个选项：once 选项
+- 即使使用匿名函数，这种方法也是有效的，你的监听器只会被调用一次。
+
+方法三
+
+- `.addEventListener()` 可以配置一个信号，用于命令式地中止/删除监听器。当相应的控制器调用 .abort() 时，监听器会被移除
+- 可以在不需要处理 .removeEventListener() 的潜在陷阱的情况下移除监听器。还有一个更大的优势：您可以使用一个信号一次性删除多个监听器，使用匿名函数也可以
+
+```js
+document.getElementById("button").addEventListener("click", () => {
+  console.log("clicked!");
+});
+
+// 方法一
+document.getElementById("button").removeEventListener("click", () => {
+  console.log("clicked!");
+});
+// 方法一优化：
+const myCallback = () => {
+  console.log("clicked!");
+};
+
+document.getElementById("button").addEventListener("click", myCallback);
+document.getElementById("button").removeEventListener("click", myCallback);
+
+// 方法二
+document.getElementById("button").addEventListener(
+  "click",
+  () => {
+    console.log("clicked!");
+  },
+  { once: true }
+);
+
+// 方法三
+const button = document.getElementById("button");
+const controller = new AbortController();
+const { signal } = controller;
+
+button.addEventListener("click", () => console.log("clicked!"), { signal });
+window.addEventListener("resize", () => console.log("resized!"), { signal });
+document.addEventListener("keyup", () => console.log("pressed!"), { signal });
+
+// Remove all listeners at once:
+controller.abort();
+```
