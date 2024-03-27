@@ -80,6 +80,54 @@
 |  从 URL 中获取参数   |          getParamByUrl           |
 |       下载文件       |           downloadFile           |
 
+移除事件监听
+```js
+document.getElementById("button").addEventListener("click", () => {
+  console.log("clicked!");
+});
+
+// 方法一
+document.getElementById("button").removeEventListener("click", () => {
+  console.log("clicked!");
+});
+// 方法一优化：
+const myCallback = () => {
+  console.log("clicked!");
+};
+
+document.getElementById("button").addEventListener("click", myCallback);
+document.getElementById("button").removeEventListener("click", myCallback);
+// 或者
+document
+  .getElementById("button")
+  .addEventListener("click", function myCallback() {
+    console.log("clicked!");
+    this.removeEventListener("click", myCallback);
+  });
+
+// 方法二
+document.getElementById("button").addEventListener(
+  "click",
+  () => {
+    console.log("clicked!");
+  },
+  { once: true }
+);
+
+// 方法三
+const button = document.getElementById("button");
+const controller = new AbortController();
+const { signal } = controller;
+
+button.addEventListener("click", () => console.log("clicked!"), { signal });
+window.addEventListener("resize", () => console.log("resized!"), { signal });
+document.addEventListener("keyup", () => console.log("pressed!"), { signal });
+
+// Remove all listeners at once:
+controller.abort();
+```
+
+
 ## [css](./util.css)
 
 |      result      |  class name   |
