@@ -1,3 +1,25 @@
+// 空值： [undefined, null, NaN, [], {}], 注意非空：0, false;
+function isEmpty(value) {
+  switch (Object.prototype.toString.call(value)) {
+    case '[object Undefined]':
+      return value === void 0;
+    case '[object Null]':
+      return value === null;
+    case '[object Number]':
+      return isNaN(value);
+    case '[object String]':
+      return value === "";
+    case '[object Boolean]':
+      return false;
+    case '[object Object]':
+      return Object.keys(value).length === 0;
+    case '[object Array]':
+      return value.length === 0;
+    default:
+      return false;
+  }
+}
+
 // chain 链式取值
 function getChain(obj, props, def) {
   if (obj == null || obj == null || typeof props !== "string") return def;
