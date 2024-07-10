@@ -79,6 +79,7 @@
 | 检测元素是否在屏幕中 |          Interobserver           |
 |  从 URL 中获取参数   |          getParamByUrl           |
 |       下载文件       |           downloadFile           |
+|       判断为空       |           isEmpty           |
 
 移除事件监听
 ```js
