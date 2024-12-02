@@ -3,7 +3,7 @@
  * @param {String} path - 请求的地址
  * @param {String} fileName - 文件名
  */
-const downloadByForm = (downloadUrl, fileName) => {
+export const downloadByForm = (downloadUrl, fileName) => {
   // 创建表单
   const formObj = document.createElement("form");
   formObj.action = downloadUrl;
@@ -19,12 +19,13 @@ const downloadByForm = (downloadUrl, fileName) => {
   formObj.submit(); // 发送请求
   document.body.removeChild(formObj); // 发送完清除掉
 };
+
 /**
  * 下载文件
  * @param {String} url - 请求的地址
  * @param {String} filename - 文件名
  */
-const downloadByLink = (filename, url) => {
+export const downloadByLink = (filename, url) => {
   // 声明一下文件的header的 Content-Disposition信息
   let a = document.createElement("a");
   a.style = "display: none"; // 创建一个隐藏的a标签
@@ -43,7 +44,7 @@ const downloadByLink = (filename, url) => {
  * @param {String} path - 下载地址/下载请求地址。
  * @param {String} name - 下载文件的名字/重命名（考虑到兼容性问题，最好加上后缀名）
  */
-const downloadFileByBlob = (path, fname, method) => {
+export const downloadFileByBlob = (path, fname, method) => {
   const xhr = new XMLHttpRequest();
   xhr.open(method, path, true);
   req.responseType = "blob"; //如果不指定，下载后文件会打不开
@@ -80,7 +81,7 @@ const downloadFileByBlob = (path, fname, method) => {
  * @param {String} path - 下载地址/下载请求地址。
  * @param {String} name - 下载文件的名字（考虑到兼容性问题，最好加上后缀名）
  */
-const downloadByBase64 = (path, name) => {
+export const downloadByBase64 = (path, name) => {
   const xhr = new XMLHttpRequest();
   xhr.open("get", path);
   xhr.responseType = "blob";
@@ -102,19 +103,19 @@ const downloadByBase64 = (path, name) => {
   };
 };
 
-const downloadByAxios = (url, params) => {
+export const downloadByAxios = (url, params) => {
   const downloadFile = (fileStream, name, extension, type = "") => {
     const blob = new Blob([fileStream], { type });
     const fileName = `${name}.${extension}`;
     if ("download" in document.createElement("a")) {
-      const elink = document.createElement("a");
-      elink.download = fileName;
-      elink.style.display = "none";
-      elink.href = URL.createObjectURL(blob);
-      document.body.appendChild(elink);
-      elink.click();
-      URL.revokeObjectURL(elink.href);
-      document.body.removeChild(elink);
+      const eLink = document.createElement("a");
+      eLink.download = fileName;
+      eLink.style.display = "none";
+      eLink.href = URL.createObjectURL(blob);
+      document.body.appendChild(eLink);
+      eLink.click();
+      URL.revokeObjectURL(eLink.href);
+      document.body.removeChild(eLink);
     } else {
       navigator.msSaveBlob(blob, fileName);
     }
@@ -126,10 +127,7 @@ const downloadByAxios = (url, params) => {
     },
     url,
     responseType: "blob",
-    headers: {
-      //如果需要权限下载的话，加在这里
-      Authorization: "123456",
-    },
+    // headers: { Authorization: "" },
     data: JSON.stringify(params),
   }).then(function (res) {
     var content = res.headers["content-disposition"];
@@ -140,12 +138,8 @@ const downloadByAxios = (url, params) => {
 };
 
 // 通用下载方法
+import { saveAs } from 'file-saver'
 export function download(url, params, filename, config, method = "post") {
-  downloadLoadingInstance = Loading.service({
-    text: "正在下载数据，请稍候",
-    spinner: "el-icon-loading",
-    background: "rgba(0, 0, 0, 0.7)",
-  });
   const configs = [
     url,
     params,
@@ -160,7 +154,8 @@ export function download(url, params, filename, config, method = "post") {
   if (method.toUpperCase().includes("GET")) {
     configs[2].transformRequest = [
       (params) => {
-        return tansParams(params);
+        // 处理参数
+        return params;
       },
     ];
   } else {
@@ -170,94 +165,10 @@ export function download(url, params, filename, config, method = "post") {
 
   return service[method](...configs)
     .then(async (data) => {
-      const isLogin = await blobValidate(data);
       const blob = new Blob([data]);
       saveAs(blob, filename);
-      downloadLoadingInstance.close();
     })
     .catch((r) => {
       console.error(r);
-      Message.error("下载文件出现错误，请联系管理员！");
-      downloadLoadingInstance.close();
     });
 }
-
-import axios from "axios";
-import { Message } from "element-ui";
-import { saveAs } from "file-saver";
-import { getToken } from "@/utils/auth";
-import errorCode from "@/utils/errorCode";
-import { blobValidate } from "@/utils/ruoyi";
-
-const baseURL = process.env.VUE_APP_BASE_API;
-
-export default {
-  name(name, isDelete = true) {
-    var url =
-      baseURL +
-      "/common/download?fileName=" +
-      encodeURIComponent(name) +
-      "&delete=" +
-      isDelete;
-    axios({
-      method: "get",
-      url: url,
-      responseType: "blob",
-      headers: { Authorization: "Bearer " + getToken() },
-    }).then(async (res) => {
-      const isLogin = await blobValidate(res.data);
-      if (isLogin) {
-        const blob = new Blob([res.data]);
-        this.saveAs(blob, decodeURIComponent(res.headers["download-filename"]));
-      } else {
-        this.printErrMsg(res.data);
-      }
-    });
-  },
-  resource(resource) {
-    var url =
-      baseURL +
-      "/common/download/resource?resource=" +
-      encodeURIComponent(resource);
-    axios({
-      method: "get",
-      url: url,
-      responseType: "blob",
-      headers: { Authorization: "Bearer " + getToken() },
-    }).then(async (res) => {
-      const isLogin = await blobValidate(res.data);
-      if (isLogin) {
-        const blob = new Blob([res.data]);
-        this.saveAs(blob, decodeURIComponent(res.headers["download-filename"]));
-      } else {
-        this.printErrMsg(res.data);
-      }
-    });
-  },
-  zip(url, name) {
-    var url = baseURL + url;
-    axios({
-      method: "get",
-      url: url,
-      responseType: "blob",
-      headers: { Authorization: "Bearer " + getToken() },
-    }).then(async (res) => {
-      const isLogin = await blobValidate(res.data);
-      if (isLogin) {
-        const blob = new Blob([res.data], { type: "application/zip" });
-        this.saveAs(blob, name);
-      } else {
-        this.printErrMsg(res.data);
-      }
-    });
-  },
-  saveAs(text, name, opts) {
-    saveAs(text, name, opts);
-  },
-  async printErrMsg(data) {
-    const resText = await data.text();
-    const rspObj = JSON.parse(resText);
-    const errMsg = errorCode[rspObj.code] || rspObj.msg || errorCode["default"];
-    Message.error(errMsg);
-  },
-};
