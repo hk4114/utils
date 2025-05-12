@@ -1,91 +1,91 @@
 // 获取浏览器信息
 function getBrowser() {
-  const { userAgent } = navigator;
-  const rMsie = /(msie\s|trident.*rv:)([\w.]+)/;
-  const rEdge = /(edge)\/([\w.]+)/;
-  const rFirefox = /(firefox)\/([\w.]+)/;
-  const rOpera = /(opera).+version\/([\w.]+)/;
-  const rChrome = /(chrome)\/([\w.]+)/;
-  const rSafari = /version\/([\w.]+).*(safari)/;
-  let browser = "other";
-  let version = "0";
-  let brand = "other";
-  const ua = userAgent.toLowerCase();
-  const { vendor } = navigator;
+  const { userAgent } = navigator
+  const rMsie = /(msie\s|trident.*rv:)([\w.]+)/
+  const rEdge = /(edge)\/([\w.]+)/
+  const rFirefox = /(firefox)\/([\w.]+)/
+  const rOpera = /(opera).+version\/([\w.]+)/
+  const rChrome = /(chrome)\/([\w.]+)/
+  const rSafari = /version\/([\w.]+).*(safari)/
+  let browser = "other"
+  let version = "0"
+  let brand = "other"
+  const ua = userAgent.toLowerCase()
+  const { vendor } = navigator
   function uaMatch(ua) {
-    let match = rMsie.exec(ua);
+    let match = rMsie.exec(ua)
     if (match != null) {
-      return { browser: "ie", version: match[2] || "0" };
+      return { browser: "ie", version: match[2] || "0" }
     }
-    match = rEdge.exec(ua);
+    match = rEdge.exec(ua)
     if (match != null) {
-      return { browser: "edge", version: match[2] || "0" };
+      return { browser: "edge", version: match[2] || "0" }
     }
-    match = rChrome.exec(ua);
+    match = rChrome.exec(ua)
     if (match != null && /Google/.test(vendor)) {
-      return { browser: match[1] || "", version: match[2] || "0" };
+      return { browser: match[1] || "", version: match[2] || "0" }
     }
-    match = rSafari.exec(ua);
+    match = rSafari.exec(ua)
     if (match != null && /Apple Computer/.test(vendor)) {
-      return { browser: match[2] || "", version: match[1] || "0" };
+      return { browser: match[2] || "", version: match[1] || "0" }
     }
-    match = rFirefox.exec(ua);
+    match = rFirefox.exec(ua)
     if (match != null) {
-      return { browser: match[1] || "", version: match[2] || "0" };
+      return { browser: match[1] || "", version: match[2] || "0" }
     }
-    match = rOpera.exec(ua);
+    match = rOpera.exec(ua)
     if (match != null) {
-      return { browser: match[1] || "", version: match[2] || "0" };
+      return { browser: match[1] || "", version: match[2] || "0" }
     }
-    return { browser: "other", version: "0" };
+    return { browser: "other", version: "0" }
   }
 
   try {
-    const browserMatch = uaMatch(ua);
-    ({ browser, version } = browserMatch);
+    const browserMatch = uaMatch(ua)
+    ;({ browser, version } = browserMatch)
 
     if (/qqbrowser/.test(ua)) {
-      brand = "qq";
+      brand = "qq"
     } else if (/se/.test(ua) && /metasr/.test(ua)) {
-      brand = "sougou";
+      brand = "sougou"
     } else if (/360se/.test(ua)) {
-      brand = "360";
+      brand = "360"
     } else if (/ucweb/.test(ua)) {
-      brand = "uc";
+      brand = "uc"
     } else if (/2345explorer/.test(ua)) {
-      brand = "2345";
+      brand = "2345"
     } else if (/lbbrowser/.test(ua)) {
-      brand = "liebao";
+      brand = "liebao"
     } else if (/maxthon/.test(ua)) {
-      brand = "maxthon";
+      brand = "maxthon"
     } else {
-      brand = browser;
+      brand = browser
     }
   } catch (e) {
-    console.error(` getBrowser error: ${e}`);
+    console.error(` getBrowser error: ${e}`)
   }
-  return `${brand}_${browser}_${version}`;
+  return `${brand}_${browser}_${version}`
 }
 
 // 复制
 async function performCopy(event) {
-  event.preventDefault();
+  event.preventDefault()
   if (
     navigator.clipboard &&
     navigator.clipboard.read &&
     navigator.clipboard.write
   ) {
     try {
-      await navigator.clipboard.writeText(copyText);
-      console.log(`${copyText} copied to clipboard`);
+      await navigator.clipboard.writeText(copyText)
+      console.log(`${copyText} copied to clipboard`)
     } catch (err) {
-      console.error("Failed to copy: ", err);
+      console.error("Failed to copy: ", err)
     }
   }
 }
 // 粘贴
 async function performPaste(event) {
-  event.preventDefault();
+  event.preventDefault()
   if (
     !(
       navigator.clipboard &&
@@ -93,14 +93,14 @@ async function performPaste(event) {
       navigator.clipboard.write
     )
   ) {
-    return false;
+    return false
   }
   try {
-    const text = await navigator.clipboard.readText();
-    setPastetext(text);
-    console.log("Pasted content: ", text);
+    const text = await navigator.clipboard.readText()
+    setPastetext(text)
+    console.log("Pasted content: ", text)
   } catch (err) {
-    console.error("Failed to read clipboard contents: ", err);
+    console.error("Failed to read clipboard contents: ", err)
   }
 }
 
@@ -108,198 +108,263 @@ const copyText = async (val) => {
   try {
     // 使用现代 API 尝试复制
     if (navigator.clipboard && navigator.permissions) {
-      await navigator.clipboard.writeText(val);
-      return; // 如果成功，直接返回
+      await navigator.clipboard.writeText(val)
+      return // 如果成功，直接返回
     }
 
     // 降级方案
-   const textArea = document.createElement('textArea') 
-   textArea.value = val 
-   textArea.style.width = 0 
-   textArea.style.position = 'fixed' 
-   textArea.style.left = '-999px' 
-   textArea.style.top = '10px' 
-   textArea.setAttribute('readonly', 'readonly')
-   document.body.appendChild(textArea) 
-   textArea.select()
+    const textArea = document.createElement("textArea")
+    textArea.value = val
+    textArea.style.width = 0
+    textArea.style.position = "fixed"
+    textArea.style.left = "-999px"
+    textArea.style.top = "10px"
+    textArea.setAttribute("readonly", "readonly")
+    document.body.appendChild(textArea)
+    textArea.select()
 
     // 尝试执行复制操作
-    const success = document.execCommand('copy');
+    const success = document.execCommand("copy")
     if (!success) {
-      throw new Error('无法复制文本');
+      throw new Error("无法复制文本")
     }
 
     // 清理
-    document.body.removeChild(textArea);
+    document.body.removeChild(textArea)
   } catch (err) {
-    console.error('复制失败:', err);
-  }
-};
-
-// 目标元素全屏
-function getFullScreen(id) {
-  if (document.fullscreenEnabled) {
-    document.getElementById(id).requestFullscreen();
+    console.error("复制失败:", err)
   }
 }
 
 // 获取上一页url
 function getLastPageUrl() {
-  return document.referrer;
+  return document.referrer
 }
 
 // 创建链接字符串
 function createLinkStr(str, url) {
-  return str.link(url); // `<a herf="www.google.com">google</a>`
+  return str.link(url) // `<a herf="www.google.com">google</a>`
 }
 
 // get image natural width and height
 function getImageNatural(img, cb) {
   if (img.naturalWidth) {
     // 现代浏览器
-    nWidth = img.naturalWidth;
-    nHeight = img.naturalHeight;
-    cb({ w: nWidth, h: nHeight });
+    nWidth = img.naturalWidth
+    nHeight = img.naturalHeight
+    cb({ w: nWidth, h: nHeight })
   } else {
     // IE6/7/8
-    var image = new Image();
-    image.src = img.attr("src");
+    var image = new Image()
+    image.src = img.attr("src")
     if (image.complete) {
-      cb({ w: image.width, h: image.height });
+      cb({ w: image.width, h: image.height })
     } else {
       image.onload = function () {
-        var w = image.width;
-        var h = image.height;
-        cb({ w: w, h: h });
-      };
+        var w = image.width
+        var h = image.height
+        cb({ w: w, h: h })
+      }
     }
   }
 }
 
 function findParent(dom, className) {
-  let parent = dom.parentElement;
+  let parent = dom.parentElement
   if (dom && parent.className !== className) {
-    parent = findParent(dom.parentElement, className);
+    parent = findParent(dom.parentElement, className)
   }
-  return parent;
+  return parent
 }
 
 function getElementTop(element, target) {
-  const eleRect = element.getBoundingClientRect();
-  const targetRect = target.getBoundingClientRect();
+  const eleRect = element.getBoundingClientRect()
+  const targetRect = target.getBoundingClientRect()
   if (eleRect && targetRect) {
-    return targetRect.top - eleRect.top;
+    return targetRect.top - eleRect.top
   }
 
-  var actualTop = element.offsetTop;
-  var current = element.offsetParent;
+  var actualTop = element.offsetTop
+  var current = element.offsetParent
 
   while (current !== target) {
-    actualTop += current.offsetTop;
-    current = current.offsetParent;
+    actualTop += current.offsetTop
+    current = current.offsetParent
   }
-  return actualTop;
+  return actualTop
 }
 
 function getElementLeft(element, target) {
-  const eleRect = element.getBoundingClientRect();
-  const targetRect = target.getBoundingClientRect();
+  const eleRect = element.getBoundingClientRect()
+  const targetRect = target.getBoundingClientRect()
   if (eleRect && targetRect) {
-    return targetRect.left - eleRect.left;
+    return targetRect.left - eleRect.left
   }
 
-  var actualLeft = element.offsetLeft;
-  var current = element.offsetParent;
+  var actualLeft = element.offsetLeft
+  var current = element.offsetParent
 
   while (current !== target) {
-    actualLeft += current.offsetLeft;
-    current = current.offsetParent;
+    actualLeft += current.offsetLeft
+    current = current.offsetParent
   }
-  return actualLeft;
+  return actualLeft
+}
+
+// 判断是否全屏
+function isFullScreen() {
+  return !!(
+    document.fullscreen ||
+    document.mozFullScreen ||
+    document.webkitIsFullScreen ||
+    document.webkitFullScreen ||
+    document.msFullScreen
+  )
 }
 
 // 全屏
 function launchFullScreen(element) {
   if (element.requestFullscreen) {
-    element.requestFullscreen();
+    element.requestFullscreen()
   } else if (element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
+    element.mozRequestFullScreen()
   } else if (element.msRequestFullscreen) {
-    element.msRequestFullscreen();
+    element.msRequestFullscreen()
   } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullScreen();
+    element.webkitRequestFullScreen()
   }
 }
 
 // 退出全屏
 function exitFullScreen() {
   if (document.exitFullscreen) {
-    document.exitFullscreen();
+    document.exitFullscreen()
   } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
+    document.msExitFullscreen()
   } else if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
+    document.mozCancelFullScreen()
   } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
+    document.webkitExitFullscreen()
   }
 }
 
 class MyCache {
   constructor(isLocal = true) {
-    this.storage = isLocal ? localStorage : sessionStorage;
+    this.storage = isLocal ? localStorage : sessionStorage
   }
 
   setItem(key, value) {
-    if (typeof value === "object") value = JSON.stringify(value);
-    this.storage.setItem(key, value);
+    if (typeof value === "object") value = JSON.stringify(value)
+    this.storage.setItem(key, value)
   }
 
   getItem(key) {
     try {
-      return JSON.parse(this.storage.getItem(key));
+      return JSON.parse(this.storage.getItem(key))
     } catch (err) {
-      return this.storage.getItem(key);
+      return this.storage.getItem(key)
     }
   }
 
   removeItem(key) {
-    this.storage.removeItem(key);
+    this.storage.removeItem(key)
   }
 
   clear() {
-    this.storage.clear();
+    this.storage.clear()
   }
 
   key(index) {
-    return this.storage.key(index);
+    return this.storage.key(index)
   }
 
   length() {
-    return this.storage.length;
+    return this.storage.length
   }
 }
 
-const localCache = new MyCache();
-const sessionCache = new MyCache(false);
+const localCache = new MyCache()
+const sessionCache = new MyCache(false)
 
 // localCache.getItem('user')
 // sessionCache.setItem('name','kane')
 // sessionCache.getItem('token')
 // localCache.clear()
 
+
+// 当你需要将录制当前屏幕，并将录屏上传或下载
+export function recordScreen() {
+  const streamPromise = navigator.mediaDevices.getDisplayMedia()
+  streamPromise
+    .then((stream) => {
+      var recordedChunks = [] // 录制的视频数据
+
+      var options = { mimeType: "video/webm; codecs=vp9" } // 设置编码格式
+      var mediaRecorder = new MediaRecorder(stream, options) // 初始化MediaRecorder实例
+
+      mediaRecorder.ondataavailable = handleDataAvailable // 设置数据可用（录屏结束）时的回调
+      mediaRecorder.start()
+      // 视频碎片合并
+      function handleDataAvailable(event) {
+        if (event.data.size > 0) {
+          recordedChunks.push(event.data) // 添加数据，event.data是一个BLOB对象
+          download() // 封装成BLOB对象并下载
+        }
+      }
+
+      // 文件下载
+      function download() {
+        var blob = new Blob(recordedChunks, {
+          type: "video/webm",
+        })
+        // 生成带时间戳的文件名
+        const fileName = `screen-record-${Date.now()}.webm`
+        var url = URL.createObjectURL(blob)
+        var a = document.createElement("a")
+        document.body.appendChild(a)
+        a.style = "display: none"
+        a.href = url
+        a.download = fileName // 使用动态文件名
+        a.click()
+        window.URL.revokeObjectURL(url)
+
+        // 清理DOM元素
+        document.body.removeChild(a)
+      }
+
+      // 添加停止按钮监听
+      stream.getVideoTracks()[0].addEventListener("ended", () => {
+        mediaRecorder.stop()
+      })
+
+      mediaRecorder.onstop = () => {
+        // 正确的事件触发点
+        // download()
+        // 释放媒体流
+        stream.getTracks().forEach((track) => track.stop())
+      }
+    })
+    .catch((error) => {
+      // 添加错误处理
+      console.error("Error accessing media devices:", error)
+    })
+}
+
+
 export default {
   getBrowser,
   performCopy,
   performPaste,
-  getFullScreen,
   getLastPageUrl,
   createLinkStr,
   getImageNatural,
   findParent,
   getElementTop,
   getElementLeft,
+  isFullScreen,
   launchFullScreen,
   exitFullScreen,
-  localCache, 
-  sessionCache 
-};
+  recordScreen,
+  localCache,
+  sessionCache,
+}

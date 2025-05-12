@@ -44,7 +44,6 @@
 |       获取浏览器信息        |           getBrowser            |
 |            复制             |           performCopy           |
 |            粘贴             |          performPaste           |
-|        目标元素全屏         |          getFullScreen          |
 |       获取上一页 url        |         getLastPageUrl          |
 |       创建链接字符串        |          createLinkStr          |
 |      获取图片原始宽高       |         getImageNatural         |
@@ -53,6 +52,7 @@
 | 获取元素相对于某元素的 top  |          getElementTop          |
 |            全屏             | launchFullScreen/exitFullScreen |
 |          存储操作           |    localCache, sessionCache     |
+|            录屏             |          recordScreen           |
 
 ## [字符串](./src/str/index.js)
 
@@ -79,7 +79,7 @@
 | 检测元素是否在屏幕中 |          Interobserver           |
 |  从 URL 中获取参数   |          getParamByUrl           |
 |       下载文件       |           downloadFile           |
-|       判断为空       |           isEmpty           |
+|       判断为空       |             isEmpty              |
 
 移除事件监听
 ```js
