@@ -53,6 +53,8 @@
 |            全屏             | launchFullScreen/exitFullScreen |
 |          存储操作           |    localCache, sessionCache     |
 |            录屏             |          recordScreen           |
+|     滚轮操纵横向滚动条      |          setScrollFun           |
+
 
 ## [字符串](./src/str/index.js)
 

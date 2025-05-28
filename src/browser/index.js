@@ -291,7 +291,6 @@ const sessionCache = new MyCache(false)
 // sessionCache.getItem('token')
 // localCache.clear()
 
-
 // 当你需要将录制当前屏幕，并将录屏上传或下载
 export function recordScreen() {
   const streamPromise = navigator.mediaDevices.getDisplayMedia()
@@ -351,6 +350,79 @@ export function recordScreen() {
 }
 
 
+function scrollHorizontally(event) {
+  //获取滚轮跨距，兼容获取方式
+  let detail = event.wheelDelta || event.detail || event.wheelDeltaY
+  let moveForwardStep = -1
+  let moveBackStep = 1
+  let step = 0
+  //如果跨步大于0，表明正向跨步，将跨步放大100倍，改变滑动速度，如果跨步小于0，表明反向跨步，将跨步放大500倍，改变滑动速度
+  step = detail > 0 ? moveForwardStep * 80 : moveBackStep * 80
+  /*覆盖当前滚动条的位置,单位是像素，叠增或剃减*/
+  this.documentObj.scrollLeft = this.documentObj.scrollLeft + step
+
+  //平滑值(越小越慢，不能小于等于0)
+  let slipNum = 0.6
+  //末尾值（越小，则越平稳，越大越仓促）
+  let endNum = 3
+  /*递减步伐值*/
+  let decreasingPaceNum = step
+  /*速度*/
+  let paceNum = 60
+
+  /*效果一*/
+  let t = setInterval(() => {
+    if (Math.abs(decreasingPaceNum) < endNum) {
+      clearInterval(t)
+      return
+    }
+    decreasingPaceNum = decreasingPaceNum * slipNum
+    this.documentObj.scrollLeft =
+      this.documentObj.scrollLeft + decreasingPaceNum
+  }, paceNum)
+
+  /*效果二*/
+  /*for(let i=1;Math.abs(decreasingPaceNum) > endNum;i++){
+      decreasingPaceNum = decreasingPaceNum * slipNum
+      setTimeout(() => {
+        this.documentObj.scrollLeft = this.documentObj.scrollLeft + decreasingPaceNum
+      }, i * paceNum)
+    }*/
+}
+
+// 滚轮操纵横向滚动条
+export function setScrollFun(id) {
+  //绑定的容器
+  const dom = document.getElementById(id)
+  dom.addEventListener(
+    "DOMMouseScroll",
+    scrollHorizontally,
+    false
+  )
+  dom.addEventListener(
+    "mousewheel",
+    scrollHorizontally,
+    false
+  )
+  // <div id="events-wrap"></div>
+  // mounted() {
+  //   this.$nextTick(() => {
+  //     this.setScrollFun();
+  //   });
+  // },
+  // this.documentObj = document.getElementById(id)
+  // this.documentObj.addEventListener(
+  //   "DOMMouseScroll",
+  //   this.scrollHorizontally,
+  //   false
+  // )
+  // this.documentObj.addEventListener(
+  //   "mousewheel",
+  //   this.scrollHorizontally,
+  //   false
+  // )
+}
+
 export default {
   getBrowser,
   performCopy,
@@ -367,4 +439,5 @@ export default {
   recordScreen,
   localCache,
   sessionCache,
+  setScrollFun
 }
